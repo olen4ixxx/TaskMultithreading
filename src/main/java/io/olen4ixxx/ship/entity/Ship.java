@@ -18,11 +18,17 @@ public class Ship extends Thread {
     private final Semaphore semaphore;
     private final Pier[] piers;
     private final ContainerPlace[] portStorage;
-    private Lock lock;
+    private final Lock unloadLock;
+    private final Lock loadLock;
+    private final Lock takeLock;
+    private final Lock releaseLock;
 
     public Ship(int numberOfContainers, int shipStorageCapacity, ShipLoadType shipLoadType) {
         shipId = ShipIdGenerator.generateId();
-        lock = new  ReentrantLock();
+        unloadLock = new  ReentrantLock();
+        loadLock = new  ReentrantLock();
+        takeLock = new  ReentrantLock();
+        releaseLock = new  ReentrantLock();
         Port port = Port.getInstance();
         semaphore = new Semaphore(port.getPiers().length, true);
         piers = port.getPiers();
@@ -47,6 +53,7 @@ public class Ship extends Thread {
     }
 
     private void unload() {
+        unloadLock.lock();
         try {
             int pierNumber = takePier();
             logger.info("Ship №{} unloads", shipId);
@@ -69,10 +76,14 @@ public class Ship extends Thread {
             }
             releasePier(pierNumber);
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            unloadLock.unlock();
         }
     }
 
     private void load() {
+        loadLock.lock();
         try {
             int pierNumber = takePier();
             logger.info("Ship №{} loads", shipId);
@@ -95,6 +106,9 @@ public class Ship extends Thread {
             }
             releasePier(pierNumber);
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            loadLock.unlock();
         }
     }
 
@@ -105,7 +119,7 @@ public class Ship extends Thread {
         semaphore.acquire();
         int pierNumber = 0; // FIXME: 29.11.2021
         //Ищем свободное место и паркуемся
-        lock.lock();
+        takeLock.lock();
         try {
             int i = 0;
             while (i < piers.length) {
@@ -118,19 +132,19 @@ public class Ship extends Thread {
                 i++;
             }
         } finally {
-            lock.unlock();
+            takeLock.unlock();
         }
         TimeUnit.SECONDS.sleep(1);
         return pierNumber;
     }
 
     private void releasePier(int pierNumber) {
-        lock.lock();
+        releaseLock.lock();
         try {
             logger.info("Ship №{} leaves pier №{}.", shipId, piers[pierNumber].getPierId());
             piers[pierNumber].setFree();//Освобождаем место
         } finally {
-            lock.unlock();
+            releaseLock.unlock();
         }
         //release(), напротив, освобождает ресурс
         semaphore.release();
