@@ -208,6 +208,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/PortTrain.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/Ship.java">
           <value>
             <set />
@@ -223,7 +228,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/ShipPort.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/ShipType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/Train.java">
           <value>
             <set />
           </value>
@@ -244,6 +259,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/ContainerPlace.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/ContainerPlace1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/Pier.java">
           <value>
             <set />
           </value>
