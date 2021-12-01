@@ -1,13 +1,27 @@
 package io.olen4ixxx.ship.entity;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Port {
-    private final Pier[] piers;
-    private final ContainerPlace[] portStorage;
-//    private final AtomicReference<Pier>[] piers;
-//    private final AtomicReference<ContainerPlace>[] portStorage;
+    private static final Logger logger = LogManager.getLogger();
+    private static final int NUMBER_OF_CONTAINERS_DEFAULT = 10;
+    private static final int NUMBER_OF_PIERS = 2;
+
+    private Lock lock = new ReentrantLock();
+    private final Semaphore semaphore = new Semaphore(2, true);
+
+    private final Deque<Condition> waitingThreadConditions = new ArrayDeque<>();
+
+    private final Deque<Pier> piers;
 
     private static class SingletonHolder {
         public static final Port HOLDER_INSTANCE = new Port();
@@ -17,28 +31,46 @@ public class Port {
         return SingletonHolder.HOLDER_INSTANCE;
     }
 
-    private Port() { // TODO: 29.11.2021  
-        int piersNumber = 2;
-        int numberOfContainers = 10;
-        int portStorageCapacity = 20;
-        piers = new Pier[piersNumber];
-        for (int i = 0; i < piersNumber; i++) {
-            piers[i] = new Pier();
-        }
-        portStorage = new ContainerPlace[portStorageCapacity];
-        for (int i = 0; i < numberOfContainers; i++) {
-            portStorage[i] = new ContainerPlace(false);
-        }
-        for (int i = numberOfContainers; i < portStorageCapacity; i++) {
-            portStorage[i] = new ContainerPlace(true);
+    private Port() { // TODO: 29.11.2021
+        piers = new ArrayDeque<>();
+        for (int i = 0; i < NUMBER_OF_PIERS; i++) {
+            piers.add(new Pier());
         }
     }
 
-    public Pier[] getPiers() {
-        return piers;
+    public Pier takePier() {
+        Pier pier;
+        if (piers.isEmpty()) {
+            lock.lock();
+            Condition condition = lock.newCondition();
+            try {
+                waitingThreadConditions.add(condition);
+                condition.await();
+            } catch (InterruptedException e) {
+                logger.error("Pier take failed", e);
+                Thread.currentThread().interrupt();
+            } finally {
+                lock.unlock();
+            }
+        }
+        pier = piers.pop();
+        logger.info("Pier №{} is taken", pier.getPierId());
+        return pier;
     }
 
-    public ContainerPlace[] getPortStorage() {
-        return portStorage;
+    public void releasePier(Pier pier) {
+        lock.lock();
+        try {
+            if (piers.size() <= NUMBER_OF_PIERS) {
+                piers.push(pier);
+                Condition condition = waitingThreadConditions.poll();
+                if (condition != null) {
+                    condition.signal();
+                }
+            }
+        } finally {
+            logger.info("Pier №{} is released", pier.getPierId());
+            lock.unlock();
+        }
     }
 }

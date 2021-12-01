@@ -1,7 +1,7 @@
 package io.olen4ixxx.ship.reader.impl;
 
 import io.olen4ixxx.ship.exception.ShipException;
-import io.olen4ixxx.ship.reader.CustomReader;
+import io.olen4ixxx.ship.reader.ShipReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CompositeFileReader implements CustomReader {
+public class ShipFileReader implements ShipReader {
     private static final Logger logger = LogManager.getLogger();
 
     @Override

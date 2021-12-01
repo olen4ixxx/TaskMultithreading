@@ -1,44 +1,45 @@
 package io.olen4ixxx.ship.entity;
 
 import io.olen4ixxx.ship.util.PierIdGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Pier {
+    private static final Logger logger = LogManager.getLogger();
     private final int pierId;
-    private boolean free;
-
-    public Pier() {
-        free = true;
-        pierId = PierIdGenerator.generateId();
-    }
+    private final AtomicBoolean free;
 
     public boolean isFree() {
-        return free;
+        return free.get();
     }
 
     public void setFree() {
-        this.free = true;
+        free.set(true);
     }
 
     public void setBusy() {
-        this.free = false;
+        free.set(false);
     }
 
     public int getPierId() {
         return pierId;
     }
 
-    @Override // TODO: 28.11.2021
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pier pier = (Pier) o;
-        return free == pier.free;
+    public Pier() {
+        free = new AtomicBoolean(true);
+        pierId = PierIdGenerator.generateId();
     }
 
-    @Override // TODO: 28.11.2021  
-    public int hashCode() {
-        return Objects.hash(free);
+    public void serviceShip(Ship ship) {
+        logger.info("Ship №{} {}", ship.getShipId(), ship.getShipLoadType());
+        try {
+            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000,6000));
+        } catch (InterruptedException e) {
+            logger.error("Ship service failed", e);
+        }
     }
 }

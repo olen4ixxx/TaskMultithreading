@@ -213,12 +213,47 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/Ship1.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/ShipLoadType.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entity/ShipType.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityNew/Pier.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityNew/Port.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityNew/Ship.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/ContainerPlace.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/Port.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/entityOLD/Ship.java">
           <value>
             <set />
           </value>
@@ -233,12 +268,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/parser/ShipParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/parser/impl/ShipInputDataParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/reader/CustomReader.java">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/reader/ShipReader.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/reader/impl/CompositeFileReader.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/reader/impl/ShipFileReader.java">
           <value>
             <set />
           </value>
@@ -254,6 +309,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/io/olen4ixxx/ship/util/ShipIdGenerator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/files/data.txt">
           <value>
             <set />
           </value>

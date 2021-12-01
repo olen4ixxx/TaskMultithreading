@@ -1,4 +1,4 @@
-package io.olen4ixxx.ship.entity;
+package io.olen4ixxx.ship.entityOLD;
 
 public class ContainerPlace {
     private boolean free;
