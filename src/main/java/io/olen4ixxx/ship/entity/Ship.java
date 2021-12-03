@@ -10,7 +10,7 @@ public class Ship extends Thread {
     private static final Logger logger = LogManager.getLogger();
     private final int shipId;
     private final ShipLoadType shipLoadType;
-    private AtomicInteger numberOfContainers;
+    private final AtomicInteger numberOfContainers;
     public static final int SHIP_CONTAINER_CAPACITY = 6;
 
     public Ship(int numberOfContainers, ShipLoadType shipLoadType) {
@@ -41,6 +41,6 @@ public class Ship extends Thread {
     }
 
     public int changeNumberOfContainers(int number) {
-        return  numberOfContainers.addAndGet(number);
+        return numberOfContainers.addAndGet(number);
     }
 }

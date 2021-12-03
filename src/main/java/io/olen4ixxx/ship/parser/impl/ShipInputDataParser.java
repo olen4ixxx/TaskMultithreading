@@ -9,7 +9,7 @@ public class ShipInputDataParser implements ShipParser {
 
     @Override
     public int getNumberOfPiers(String data) {
-        String str = Arrays.stream(data.split("\s"))
+        String str = Arrays.stream(data.split("[\s]"))
                 .filter(s -> s.matches(NUMBER_REGEX))
                 .toList().get(0);
         return Integer.parseInt(str);
@@ -44,6 +44,14 @@ public class ShipInputDataParser implements ShipParser {
         String str = Arrays.stream(data.split("\s"))
                 .filter(s -> s.matches(NUMBER_REGEX))
                 .toList().get(4);
+        return Integer.parseInt(str);
+    }
+
+    @Override
+    public int getNumberOfShips(String data) {
+        String str = Arrays.stream(data.split("\s"))
+                .filter(s -> s.matches(NUMBER_REGEX))
+                .toList().get(5);
         return Integer.parseInt(str);
     }
 }

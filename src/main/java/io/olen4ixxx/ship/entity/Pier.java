@@ -11,7 +11,6 @@ public class Pier {
     private static final Logger logger = LogManager.getLogger();
     private final int pierId;
     private final Train train;
-
     private static final double RELOAD_LOW = Port.PORT_CONTAINER_CAPACITY * 0.2;
     private static final double RELOAD_HIGH = Port.PORT_CONTAINER_CAPACITY * 0.8;
 
@@ -38,7 +37,7 @@ public class Pier {
                     if (portContainers <= RELOAD_LOW) {
                         train.bringContainers();
                     }
-                    TimeUnit.MILLISECONDS.sleep(new Random().nextInt(200,1000));
+                    TimeUnit.MILLISECONDS.sleep(new Random().nextInt(200, 1000));
                 }
             } else {
                 while (ship.getNumberOfContainers() > 0) {
@@ -49,7 +48,7 @@ public class Pier {
                     if (portContainers >= RELOAD_HIGH) {
                         train.takeAwayContainers();
                     }
-                    TimeUnit.MILLISECONDS.sleep(new Random().nextInt(100,500));
+                    TimeUnit.MILLISECONDS.sleep(new Random().nextInt(100, 500));
                 }
             }
         } catch (InterruptedException e) {
